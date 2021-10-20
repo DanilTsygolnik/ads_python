@@ -45,19 +45,6 @@ class LinkedList:
         return None
 
     # ++ approved
-    def find_all(self, val):
-        """Метод возвращает список всех узлов со значением val"""
-        results = None
-        node = self.head
-        while node is not None:
-            if node.value == val:
-                if results is None:
-                    results = []
-                results.append(node)
-            node = node.next
-        return results
-
-    # ready for approval
     def delete(self, val, remove_all=False):
         """
         Метод удаления узлов по заданному значению val
@@ -91,6 +78,17 @@ class LinkedList:
             else:
                 prev_node = curr_node
             curr_node = curr_node.next
+
+    # ready for approval
+    def find_all(self, val):
+        """Метод возвращает список всех узлов со значением val"""
+        results = []
+        node = self.head
+        while node is not None:
+            if node.value == val:
+                results.append(node)
+            node = node.next
+        return results
 
     # ready for approval
     def clean(self):
