@@ -79,7 +79,7 @@ class LinkedList:
                 prev_node = curr_node
             curr_node = curr_node.next
 
-    # ready for approval
+    # ++ approved
     def find_all(self, val):
         """Метод возвращает список всех узлов со значением val"""
         results = []
@@ -90,13 +90,13 @@ class LinkedList:
             node = node.next
         return results
 
-    # ready for approval
+    # ++ approved
     def clean(self):
         """Метод удаления всех узлов"""
         self.head = None
         self.tail = None
 
-    # ready for approval
+    # ++ approved
     def len(self):
         """Метод возвращает кол-во узлов в связном списке"""
         cnt = 0
@@ -109,7 +109,7 @@ class LinkedList:
     # ready for approval
     def insert(self, afterNode, newNode):
         """Вставка нового узла newNode после заданного afterNode"""
-        if afterNode is None:
+        if (self.head is None) or (afterNode is None):
             newNode.next = self.head
             self.head = newNode
         else:
