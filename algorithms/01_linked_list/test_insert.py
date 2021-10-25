@@ -33,6 +33,8 @@ class TestLinkedList(unittest.TestCase):
         self.s_list.insert(None, self.newNode)
         ref_list = [1]
         self.assertEqual(self.s_list.print_all_nodes(as_list=True), ref_list)
+        self.assertTrue(self.s_list.head is self.newNode)
+        self.assertTrue(self.s_list.tail is self.newNode)
 
     def test_case_2(self): # список пустой, afterNode!=None
         self.s_list.clean()
@@ -40,29 +42,39 @@ class TestLinkedList(unittest.TestCase):
         self.s_list.insert(afterNode, self.newNode)
         ref_list = [1]
         self.assertEqual(self.s_list.print_all_nodes(as_list=True), ref_list)
+        self.assertTrue(self.s_list.head is self.newNode)
+        self.assertTrue(self.s_list.tail is self.newNode)
 
     def test_case_3(self): # список не пустой, afterNode=None
         self.s_list.insert(None, self.newNode)
         ref_list = [1,0,0,0]
         self.assertEqual(self.s_list.print_all_nodes(as_list=True), ref_list)
+        self.assertTrue(self.s_list.head is self.newNode)
+        self.assertTrue(self.s_list.tail is not self.newNode)
 
     def test_case_4_1(self): # список не пустой, afterNode!=None -- 1st node
         afterNode = self.memory_slots[0]
         self.s_list.insert(afterNode, self.newNode)
         ref_list = [0,1,0,0]
         self.assertEqual(self.s_list.print_all_nodes(as_list=True), ref_list)
+        self.assertTrue(self.s_list.head is not self.newNode)
+        self.assertTrue(self.s_list.tail is not self.newNode)
 
     def test_case_4_2(self): # список не пустой, afterNode!=None -- 2nd node
         afterNode = self.memory_slots[1]
         self.s_list.insert(afterNode, self.newNode)
         ref_list = [0,0,1,0]
         self.assertEqual(self.s_list.print_all_nodes(as_list=True), ref_list)
+        self.assertTrue(self.s_list.head is not self.newNode)
+        self.assertTrue(self.s_list.tail is not self.newNode)
 
     def test_case_4_3(self): # список не пустой, afterNode!=None -- last node
         afterNode = self.memory_slots[2]
         self.s_list.insert(afterNode, self.newNode)
         ref_list = [0,0,0,1]
         self.assertEqual(self.s_list.print_all_nodes(as_list=True), ref_list)
+        self.assertTrue(self.s_list.head is not self.newNode)
+        self.assertTrue(self.s_list.tail is self.newNode)
 
 if __name__ == "__main__":
     unittest.main()

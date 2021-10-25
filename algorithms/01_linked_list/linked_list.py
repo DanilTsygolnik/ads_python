@@ -108,15 +108,18 @@ class LinkedList:
 
     # ready for approval
     def insert(self, afterNode, newNode):
-        """Вставка нового узла newNode после заданного afterNode"""
-        if (afterNode is not None) and (self.head is not None):
+        if (afterNode != None) and (self.head is not None):
             node = self.head
             while node is not None:
                 if node is afterNode: # вставляем, если искомый узел найден
-                    newNode.next = node.next # связываем новый узел со следующим за текущим
+                    newNode.next = node.next # связываем новый узел со следующим по отношению к текущему
                     node.next = newNode # связываем текущий узел со вставляемым
+                    if node is self.tail:
+                        self.tail = newNode # обновляем хвост (случай 2) 
                     break # продолжать перебор смысла нет
                 node = node.next
         else: # вставка в голову
             newNode.next = self.head # связать новый узел со следующим, т.е. с бывшей головой
+            if self.head is None:
+                self.tail = newNode # обновляем хвост (случай 1)
             self.head = newNode # назначить узел головой
