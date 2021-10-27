@@ -123,3 +123,15 @@ class LinkedList:
             if self.head is None:
                 self.tail = newNode # обновляем хвост (случай 1)
             self.head = newNode # назначить узел головой
+
+def nodes_val_sums_list(list_1, list_2):
+    try:
+        list_1.len()
+        list_2.len()
+    except:
+        raise TypeError
+    try:
+        assert list_1.len() == list_2.len()
+    except:
+        raise IndexError
+    pass
