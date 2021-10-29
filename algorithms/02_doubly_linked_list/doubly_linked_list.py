@@ -1,14 +1,20 @@
+<<<<<<< HEAD
 #pylint: disable=c0114,c0115,c0116,c0103
+=======
+>>>>>>> 995a631 (algo, doubly linked list, wip: add_in_tail(), get_all_nodes(), clean(), find() -- main tests ok)
 class Node:
     def __init__(self, val):
         self.value = val
         self.next = None
         self.prev = None
 
+<<<<<<< HEAD
     def wipe_links(self):
         self.next = None
         self.prev = None
 
+=======
+>>>>>>> 995a631 (algo, doubly linked list, wip: add_in_tail(), get_all_nodes(), clean(), find() -- main tests ok)
 class LinkedList2:
     def __init__(self):
         self.head = None
@@ -39,6 +45,7 @@ class LinkedList2:
             return nodes_values
         return nodes
 
+<<<<<<< HEAD
     def find(self, val):
         """Метод возвращает первый найденный по значению val узел"""
         node = self.head
@@ -72,6 +79,28 @@ class LinkedList2:
             node.next.prev = node.prev
             node.prev.next = node.next
             node = node.next
+=======
+    def find_bin(self, val):
+        if self.head is not None:
+            node_L = self.head
+            node_R = self.tail
+            while (node_L.prev is not node_R) and (node_L is not node_R):
+                if node_L.value == val:
+                    return node_L
+                if node_R.value == val:
+                    return node_R
+                node_L = node_L.next
+                node_R = node_R.prev
+            if node_L.value == val:
+                return node_L
+        return None
+
+    def find_all(self, val):
+        return []
+
+    def delete(self, val, all=False):
+        pass
+>>>>>>> 995a631 (algo, doubly linked list, wip: add_in_tail(), get_all_nodes(), clean(), find() -- main tests ok)
 
     def clean(self):
         self.head = None
