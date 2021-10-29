@@ -7,9 +7,12 @@ from linked_list import nodes_val_sums_list
 class TestFunc(unittest.TestCase):
     def test_case_1(self):
         """Вернуть ошибку, если хотя бы один из аргументов - не связный список"""
-        self.assertRaises(TypeError, nodes_val_sums_list, (None, LinkedList()))
-        self.assertRaises(TypeError, nodes_val_sums_list, (LinkedList(), None))
-        self.assertRaises(TypeError, nodes_val_sums_list, (None, None))
+        with self.assertRaises(TypeError):
+            nodes_val_sums_list(None, LinkedList())
+        with self.assertRaises(TypeError):
+            nodes_val_sums_list(LinkedList(), None)
+        with self.assertRaises(TypeError):
+            nodes_val_sums_list(None, None)
 
     def test_case_2(self):
         """Вернуть ошибку, если длины списков не совпадают"""
@@ -18,8 +21,8 @@ class TestFunc(unittest.TestCase):
         list2 = LinkedList()
         self.assertEqual(list1.len(), 1)
         self.assertEqual(list2.len(), 0)
-        lists = (list1, list2)
-        self.assertRaises(IndexError, nodes_val_sums_list, lists)
+        with self.assertRaises(IndexError):
+            nodes_val_sums_list(list1, list2)
 
 if __name__=="__main__":
     unittest.main()

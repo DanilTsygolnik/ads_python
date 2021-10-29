@@ -108,14 +108,14 @@ class LinkedList:
 
     # ready for approval
     def insert(self, afterNode, newNode):
-        if (afterNode != None) and (self.head is not None):
+        if (afterNode is not None) and (self.head is not None):
             node = self.head
             while node is not None:
                 if node is afterNode: # вставляем, если искомый узел найден
-                    newNode.next = node.next # связываем новый узел со следующим по отношению к текущему
+                    newNode.next = node.next # связь newNode со следующим по отношению к текущему
                     node.next = newNode # связываем текущий узел со вставляемым
                     if node is self.tail:
-                        self.tail = newNode # обновляем хвост (случай 2) 
+                        self.tail = newNode # обновляем хвост (случай 2)
                     break # продолжать перебор смысла нет
                 node = node.next
         else: # вставка в голову
@@ -125,13 +125,8 @@ class LinkedList:
             self.head = newNode # назначить узел головой
 
 def nodes_val_sums_list(list_1, list_2):
-    try:
-        list_1.len()
-        list_2.len()
-    except:
-        raise TypeError
-    try:
-        assert list_1.len() == list_2.len()
-    except:
-        raise IndexError
+    if not all(isinstance(i, LinkedList) for i in (list_1, list_2)):
+        raise TypeError # test case 1
+    if list_1.len() != list_2.len():
+        raise IndexError # test case 2
     pass
