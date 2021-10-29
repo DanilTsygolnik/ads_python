@@ -129,4 +129,11 @@ def nodes_val_sums_list(list_1, list_2):
         raise TypeError # test case 1
     if list_1.len() != list_2.len():
         raise IndexError # test case 2
-    pass
+    val_1 = list_1.print_all_nodes(as_list=True)
+    val_2 = list_2.print_all_nodes(as_list=True)
+    val_sums = []
+    for i, _ in enumerate(val_1):
+        if not all(isinstance(i, int) for i in (val_1[i], val_2[i])):
+            raise ValueError
+        val_sums.append(val_1[i]+val_2[i])
+    return val_sums
