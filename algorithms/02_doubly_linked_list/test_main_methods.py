@@ -170,6 +170,38 @@ class TestLenClean(unittest.TestCase):
         self.assertEqual(self.s_list.len(), 0)
         self.assertIs(self.s_list.head, self.s_list.tail)
 
+class TestInsert(unittest.TestCase):
+
+    def test_insert_empty_after_none(self):
+        nodes = [Node(0)]
+        s_list = LinkedList2()
+        s_list.insert(None, nodes[0])
+        self.assertIs(s_list.head, nodes[0])
+        self.assertIs(s_list.tail, nodes[0])
+
+    def test_insert_empty_after_not_none(self):
+        s_list = LinkedList2()
+        s_list.insert(Node(1), Node(0))
+        self.assertIs(s_list.head, None)
+        self.assertIs(s_list.tail, None)
+
+    def test_insert_single_after_none(self):
+        nodes = [Node(0), Node(1), Node(2)]
+        s_list = LinkedList2()
+        s_list.add_in_tail(nodes[0])
+        s_list.insert(Node(5), nodes[2])
+        self.assertEqual(s_list.get_all_nodes(), nodes[:1])
+        s_list.insert(None, nodes[1])
+        self.assertEqual(s_list.get_all_nodes(), nodes[:2])
+        s_list.insert(nodes[1], nodes[2])
+        self.assertEqual(s_list.get_all_nodes(), nodes)
+
+        s_list.insert(Node(5), Node(5))
+        self.assertEqual(s_list.get_all_nodes(), nodes)
+        nodes.append(Node(3))
+        s_list.insert(None, nodes[3])
+        self.assertEqual(s_list.get_all_nodes(), nodes)
+
 
 if __name__=="__main__":
     unittest.main()
