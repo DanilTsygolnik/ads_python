@@ -34,19 +34,13 @@ class LinkedList2:
             return nodes_values
         return nodes
 
-    def find_bin(self, val):
-        if self.head is not None:
-            node_L = self.head
-            node_R = self.tail
-            while (node_L.prev is not node_R) and (node_L is not node_R):
-                if node_L.value == val:
-                    return node_L
-                if node_R.value == val:
-                    return node_R
-                node_L = node_L.next
-                node_R = node_R.prev
-            if node_L.value == val:
-                return node_L
+    def find(self, val):
+        """Метод возвращает первый найденный по значению val узел"""
+        node = self.head
+        while node is not None:
+            if node.value == val:
+                return node
+            node = node.next
         return None
 
     def find_all(self, val):
