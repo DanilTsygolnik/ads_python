@@ -130,15 +130,21 @@ class LinkedList2:
         node = self.head
         did_rm = False
         while (node is not None) and (not all([not rm_all, did_rm])):
-            did_rm = True
-            if node is self.head:
-                node.next.prev = None
-                self.head = node.next
-            if node is self.tail:
-                node.prev.next = None
-                self.tail = node.prev
-            node.next.prev = node.prev
-            node.prev.next = node.next
+            if node.value == val:
+                if self.head is self.tail:
+                    self.head = None
+                    self.tail = None
+                else:
+                    if node is self.head:
+                        node.next.prev = None
+                        self.head = node.next
+                    elif node is self.tail:
+                        node.prev.next = None
+                        self.tail = node.prev
+                    else:
+                        node.next.prev = node.prev
+                        node.prev.next = node.next
+                    did_rm = True
             node = node.next
 >>>>>>> 48ec4e7 (algo, doubly linked list, wip: delete() wip)
 

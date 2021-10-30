@@ -119,5 +119,15 @@ class TestFind(unittest.TestCase):
 =======
 >>>>>>> 48ec4e7 (algo, doubly linked list, wip: delete() wip)
 
+class TestDelete(unittest.TestCase):
+
+    def test_one_node_pos(self):
+        nodes = [Node(1)]
+        s_list = get_linked(nodes)
+        s_list.delete(1)
+        self.assertIs(s_list.head, None)
+        self.assertIs(s_list.tail, None)
+
+
 if __name__=="__main__":
     unittest.main()
