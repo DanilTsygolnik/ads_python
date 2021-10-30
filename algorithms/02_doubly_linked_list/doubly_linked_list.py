@@ -1,6 +1,11 @@
+#pylint: disable=c0114,c0115,c0116,c0103
 class Node:
     def __init__(self, val):
         self.value = val
+        self.next = None
+        self.prev = None
+
+    def wipe_links(self):
         self.next = None
         self.prev = None
 
@@ -44,10 +49,29 @@ class LinkedList2:
         return None
 
     def find_all(self, val):
-        return []
+        """Метод возвращает список всех узлов со значением val"""
+        node = self.head
+        nodes_list = []
+        while node is not None:
+            if node.value == val:
+                nodes_list.append(node)
+            node = node.next
+        return nodes_list
 
-    def delete(self, val, all=False):
-        pass
+    def delete(self, val, rm_all=False):
+        node = self.head
+        did_rm = False
+        while (node is not None) and (not all([not rm_all, did_rm])):
+            did_rm = True
+            if node is self.head:
+                node.next.prev = None
+                self.head = node.next
+            if node is self.tail:
+                node.prev.next = None
+                self.tail = node.prev
+            node.next.prev = node.prev
+            node.prev.next = node.next
+            node = node.next
 
     def clean(self):
         self.head = None

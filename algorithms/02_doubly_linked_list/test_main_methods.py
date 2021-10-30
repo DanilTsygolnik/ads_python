@@ -36,5 +36,32 @@ class TestFind(unittest.TestCase):
         s_list = get_linked(nodes)
         self.assertEqual(s_list.find(1), nodes[3])
 
+class TestFindall(unittest.TestCase):
+
+    def test_empty(self):
+        nodes = []
+        s_list = get_linked(nodes)
+        self.assertEqual(s_list.find_all(1), [])
+
+    def test_one_node_pos(self):
+        nodes = [Node(1)]
+        s_list = get_linked(nodes)
+        self.assertEqual(s_list.find_all(1), nodes)
+
+    def test_one_node_neg(self):
+        nodes = [Node(0)]
+        s_list = get_linked(nodes)
+        self.assertEqual(s_list.find_all(1), [])
+
+    def test_long_single_node(self):
+        nodes = [Node(0), Node(0), Node(0), Node(1), Node(0), Node(0), Node(0)]
+        s_list = get_linked(nodes)
+        self.assertEqual(s_list.find_all(1), [nodes[3]])
+
+    def test_long_multiple_nodes(self):
+        nodes = [Node(0), Node(0), Node(0), Node(1), Node(0), Node(1), Node(0)]
+        s_list = get_linked(nodes)
+        self.assertEqual(s_list.find_all(1), [nodes[3], nodes[5]])
+
 if __name__=="__main__":
     unittest.main()
