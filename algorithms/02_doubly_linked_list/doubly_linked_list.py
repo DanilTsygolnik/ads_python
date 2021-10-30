@@ -153,7 +153,12 @@ class LinkedList2:
         self.tail = None
 
     def len(self):
-        return 0
+        node = self.head
+        length = 0
+        while node is not None:
+            length += 1
+            node = node.next
+        return length
 
     def insert(self, afterNode, newNode):
         pass
