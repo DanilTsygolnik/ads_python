@@ -46,6 +46,9 @@ class LinkedList2:
         return nodes
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d9f544d (algo, doubly linked list, wip: switched sol & test to find() - the solution from LinkedList())
     def find(self, val):
         """Метод возвращает первый найденный по значению val узел"""
         node = self.head
@@ -53,6 +56,7 @@ class LinkedList2:
             if node.value == val:
                 return node
             node = node.next
+<<<<<<< HEAD
         return None
 
     def find_all(self, val):
@@ -93,6 +97,8 @@ class LinkedList2:
                 node_R = node_R.prev
             if node_L.value == val:
                 return node_L
+=======
+>>>>>>> d9f544d (algo, doubly linked list, wip: switched sol & test to find() - the solution from LinkedList())
         return None
 
     def find_all(self, val):

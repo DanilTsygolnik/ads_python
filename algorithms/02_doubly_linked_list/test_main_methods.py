@@ -72,32 +72,22 @@ class TestFindall(unittest.TestCase):
 >>>>>>> eff4bf6 (algo, doubly linked list, wip: find_bin(): tests updated; done)
 class TestFind(unittest.TestCase):
 
-    def test_setup_check(self):
-        nodes = [Node(0), Node(0), Node(1), Node(0)]
-        s_list = get_linked(nodes)
-        self.assertEqual(s_list.get_all_nodes(), nodes)
-        self.assertEqual(s_list.get_all_nodes(True), [0,0,1,0])
-
     def test_empty(self):
         nodes = []
         s_list = get_linked(nodes)
-        self.assertEqual(s_list.find_bin(1), None)
+        self.assertEqual(s_list.find(1), None)
 
     def test_one_node_pos(self):
         nodes = [Node(1)]
         s_list = get_linked(nodes)
-        self.assertEqual(s_list.find_bin(1), nodes[0])
+        self.assertEqual(s_list.find(1), nodes[0])
 
     def test_one_node_neg(self):
         nodes = [Node(0)]
         s_list = get_linked(nodes)
-        self.assertEqual(s_list.find_bin(1), None)
+        self.assertEqual(s_list.find(1), None)
 
-    def test_even_nodes_num1(self):
-        nodes = [Node(0), Node(0), Node(1), Node(0)]
-        s_list = get_linked(nodes)
-        self.assertEqual(s_list.find_bin(1), nodes[2])
-
+<<<<<<< HEAD
     def test_even_nodes_num2(self):
         nodes = [Node(0), Node(1), Node(0), Node(0)]
         s_list = get_linked(nodes)
@@ -109,20 +99,22 @@ class TestFind(unittest.TestCase):
         self.assertEqual(self.s_list.find_bin(1), self.nodes[2])
 >>>>>>> 995a631 (algo, doubly linked list, wip: add_in_tail(), get_all_nodes(), clean(), find() -- main tests ok)
 =======
+=======
+    def test_long_single_node(self):
+>>>>>>> d9f544d (algo, doubly linked list, wip: switched sol & test to find() - the solution from LinkedList())
         nodes = [Node(0), Node(0), Node(0), Node(1), Node(0), Node(0), Node(0)]
         s_list = get_linked(nodes)
-        self.assertEqual(s_list.find_bin(1), nodes[3])
+        self.assertEqual(s_list.find(1), nodes[3])
 
-    def test_odd_nodes_num2(self):
-        nodes = [Node(0), Node(0), Node(1), Node(0), Node(0), Node(0), Node(0)]
+    def test_long_multiple_nodes(self):
+        nodes = [Node(0), Node(0), Node(0), Node(1), Node(0), Node(1), Node(0)]
         s_list = get_linked(nodes)
-        self.assertEqual(s_list.find_bin(1), nodes[2])
-
-    def test_odd_nodes_num2(self):
-        nodes = [Node(0), Node(0), Node(0), Node(0), Node(1), Node(0), Node(0)]
-        s_list = get_linked(nodes)
+<<<<<<< HEAD
         self.assertEqual(s_list.find_bin(1), nodes[4])
 >>>>>>> eff4bf6 (algo, doubly linked list, wip: find_bin(): tests updated; done)
+=======
+        self.assertEqual(s_list.find(1), nodes[3])
+>>>>>>> d9f544d (algo, doubly linked list, wip: switched sol & test to find() - the solution from LinkedList())
 
 if __name__=="__main__":
     unittest.main()
