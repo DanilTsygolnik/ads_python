@@ -67,6 +67,7 @@ class TestFindall(unittest.TestCase):
         nodes = [Node(0), Node(0), Node(0), Node(1), Node(0), Node(1), Node(0)]
         s_list = get_linked(nodes)
         self.assertEqual(s_list.find_all(1), [nodes[3], nodes[5]])
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> eff4bf6 (algo, doubly linked list, wip: find_bin(): tests updated; done)
@@ -115,6 +116,8 @@ class TestFind(unittest.TestCase):
 =======
         self.assertEqual(s_list.find(1), nodes[3])
 >>>>>>> d9f544d (algo, doubly linked list, wip: switched sol & test to find() - the solution from LinkedList())
+=======
+>>>>>>> 48ec4e7 (algo, doubly linked list, wip: delete() wip)
 
 if __name__=="__main__":
     unittest.main()

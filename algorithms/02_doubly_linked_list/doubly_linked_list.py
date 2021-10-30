@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 #pylint: disable=c0114,c0115,c0116,c0103
 =======
 >>>>>>> 995a631 (algo, doubly linked list, wip: add_in_tail(), get_all_nodes(), clean(), find() -- main tests ok)
+=======
+#pylint: disable=c0114,c0115,c0116,c0103
+>>>>>>> 48ec4e7 (algo, doubly linked list, wip: delete() wip)
 class Node:
     def __init__(self, val):
         self.value = val
@@ -9,12 +13,18 @@ class Node:
         self.prev = None
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 48ec4e7 (algo, doubly linked list, wip: delete() wip)
     def wipe_links(self):
         self.next = None
         self.prev = None
 
+<<<<<<< HEAD
 =======
 >>>>>>> 995a631 (algo, doubly linked list, wip: add_in_tail(), get_all_nodes(), clean(), find() -- main tests ok)
+=======
+>>>>>>> 48ec4e7 (algo, doubly linked list, wip: delete() wip)
 class LinkedList2:
     def __init__(self):
         self.head = None
@@ -102,11 +112,35 @@ class LinkedList2:
         return None
 
     def find_all(self, val):
-        return []
+        """Метод возвращает список всех узлов со значением val"""
+        node = self.head
+        nodes_list = []
+        while node is not None:
+            if node.value == val:
+                nodes_list.append(node)
+            node = node.next
+        return nodes_list
 
+<<<<<<< HEAD
     def delete(self, val, all=False):
         pass
 >>>>>>> 995a631 (algo, doubly linked list, wip: add_in_tail(), get_all_nodes(), clean(), find() -- main tests ok)
+=======
+    def delete(self, val, rm_all=False):
+        node = self.head
+        did_rm = False
+        while (node is not None) and (not all([not rm_all, did_rm])):
+            did_rm = True
+            if node is self.head:
+                node.next.prev = None
+                self.head = node.next
+            if node is self.tail:
+                node.prev.next = None
+                self.tail = node.prev
+            node.next.prev = node.prev
+            node.prev.next = node.next
+            node = node.next
+>>>>>>> 48ec4e7 (algo, doubly linked list, wip: delete() wip)
 
     def clean(self):
         self.head = None
