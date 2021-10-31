@@ -12,10 +12,14 @@ class LinkedList2:
         self.head.next = self.tail
         self.tail.prev = self.head
 
-    def add_in_tail(self, newNode):
-        pass
-
     def add_in_head(self, newNode):
+        if self.tail.prev is self.head:
+            self.tail.prev = newNode
+        newNode.next = self.head.next # newNode -- prev head_node
+        newNode.prev = self.head # newNode -- head_dummy
+        self.head.next = newNode # newNode > head_node
+
+    def add_in_tail(self, newNode):
         pass
 
     def delete(self, val, rm_all=False):
@@ -39,6 +43,11 @@ class LinkedList2:
         """
         nodes = []
         nodes_values = []
+        node = self.head.next
+        while node is not self.tail:
+            nodes.append(node)
+            nodes_values.append(node.value)
+            node = node.next
         if as_val:
             return nodes_values
         return nodes
