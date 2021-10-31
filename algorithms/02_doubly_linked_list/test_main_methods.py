@@ -181,10 +181,11 @@ class TestInsert(unittest.TestCase):
         self.assertIs(s_list.tail, nodes[0])
 
     def test_insert_empty_after_not_none(self):
+        nodes = [Node(0)]
         s_list = LinkedList2()
-        s_list.insert(Node(1), Node(0))
-        self.assertIs(s_list.head, None)
-        self.assertIs(s_list.tail, None)
+        s_list.insert(Node(1), nodes[0])
+        self.assertIs(s_list.head, nodes[0])
+        self.assertIs(s_list.tail, nodes[0])
 
     def test_insert_single_after_none(self):
         nodes = [Node(0), Node(1), Node(2)]

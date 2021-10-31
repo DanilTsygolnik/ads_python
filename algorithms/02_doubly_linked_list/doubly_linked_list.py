@@ -162,8 +162,7 @@ class LinkedList2:
 
     def insert(self, afterNode, newNode):
         if self.head is None:
-            if afterNode is None:
-                self.add_in_tail(newNode)
+            self.add_in_tail(newNode)
         else:
             if (afterNode is None) or (self.tail is afterNode):
                 self.add_in_tail(newNode)
