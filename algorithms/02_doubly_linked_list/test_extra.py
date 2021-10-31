@@ -149,5 +149,21 @@ class TestDelete(unittest.TestCase):
         self.assertIs(s_list.head.next, s_list.tail)
         self.assertIs(s_list.tail.prev, s_list.head)
 
+class TestLenClean(unittest.TestCase):
+    def setUp(self):
+        nodes = [Node(1), Node(1), Node(1), Node(0), Node(0)]
+        self.s_list = get_linked(nodes)
+
+    def tearDown(self):
+        self.s_list = None
+
+    def test_len(self):
+        self.assertEqual(self.s_list.len(), 5)
+
+    def test_clean(self):
+        self.s_list.clean()
+        self.assertEqual(self.s_list.len(), 0)
+        self.assertIs(self.s_list.head.next, self.s_list.tail)
+
 if __name__=="__main__":
     unittest.main()

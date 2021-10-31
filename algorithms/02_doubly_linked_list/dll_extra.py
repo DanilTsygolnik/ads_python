@@ -87,6 +87,10 @@ class LinkedList2:
 
     def len(self):
         length = 0
+        node = self.head.next
+        while node is not self.tail:
+            length += 1
+            node = node.next
         return length
 
     def find(self, val):
