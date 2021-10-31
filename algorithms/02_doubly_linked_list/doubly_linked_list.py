@@ -175,7 +175,8 @@ class LinkedList2:
                         newNode.next = node.next
                         node.next = newNode
                         newNode.prev = node
-                    break
+                        break
+                    node = node.next
 
     def add_in_head(self, newNode):
         pass
