@@ -12,29 +12,6 @@ class LinkedList2:
         self.head.next = self.tail
         self.tail.prev = self.head
 
-    def add_in_head(self, newNode):
-        if self.tail.prev is self.head:
-            self.tail.prev = newNode
-        newNode.next = self.head.next # newNode -- prev head_node
-        newNode.prev = self.head # newNode -- head_dummy
-        self.head.next = newNode # newNode > head_node
-
-    def add_in_tail(self, newNode):
-        pass
-
-    def delete(self, val, rm_all=False):
-        pass
-
-    def insert(self, afterNode, newNode):
-        pass
-
-    def clean(self):
-        pass
-
-    def len(self):
-        length = 0
-        return length
-
     def get_all_nodes(self, as_val=False):
         """
         Метод отладочного вывода значений всех узлов связного списка
@@ -51,6 +28,34 @@ class LinkedList2:
         if as_val:
             return nodes_values
         return nodes
+
+    def add_in_head(self, newNode):
+        if self.tail.prev is self.head:
+            self.tail.prev = newNode
+        newNode.next = self.head.next # newNode -- prev head_node
+        newNode.prev = self.head # newNode -- head_dummy
+        self.head.next = newNode # newNode > head_node
+
+    def add_in_tail(self, newNode):
+        if self.tail.prev is self.head:
+            self.head.next = newNode
+        newNode.prev = self.tail.prev
+        self.tail.prev.next = newNode
+        newNode.next = self.tail
+        self.tail.prev = newNode # newNode > tail_node
+
+    def delete(self, val, rm_all=False):
+        pass
+
+    def insert(self, afterNode, newNode):
+        pass
+
+    def clean(self):
+        pass
+
+    def len(self):
+        length = 0
+        return length
 
     def find(self, val):
         """Метод возвращает первый найденный по значению val узел"""
