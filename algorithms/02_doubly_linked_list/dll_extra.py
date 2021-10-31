@@ -7,6 +7,7 @@ class Node:
 
 class LinkedList2:
     def __init__(self):
+        """So called "dummy nodes" implementation"""
         self.head = Node(None)
         self.tail = Node(None)
         self.head.next = self.tail
@@ -14,9 +15,8 @@ class LinkedList2:
 
     def get_all_nodes(self, as_val=False):
         """
-        Метод отладочного вывода значений всех узлов связного списка
-        По умолчанию выводит на экран значение каждого узла
-        При as_list=True возвращает список значений узлов
+        Method returns nodes values (helpful for debugging).
+        Returns a list of nodes by default. With as_list=True returns a list of nodes values.
         """
         nodes = []
         nodes_values = []
@@ -30,21 +30,29 @@ class LinkedList2:
         return nodes
 
     def add_in_head(self, newNode):
-        if self.tail.prev is self.head:
+        if self.tail.prev is self.head: # if linked list is empty: tail_dummy -- newNode
             self.tail.prev = newNode
-        newNode.next = self.head.next
-        newNode.prev = self.head
-        self.head.next = newNode
+        newNode.next = self.head.next # newNode -- head_node
+        newNode.prev = self.head # newNode -- head_dummy
+        self.head.next = newNode # head_dummy -- newNode
 
     def add_in_tail(self, newNode):
-        if self.tail.prev is self.head:
+        if self.tail.prev is self.head: # if linked list is empty: head_dummy -- newNode
             self.head.next = newNode
-        newNode.prev = self.tail.prev
-        self.tail.prev.next = newNode
-        newNode.next = self.tail
-        self.tail.prev = newNode
+        newNode.prev = self.tail.prev # newNode -- tail_node 
+        self.tail.prev.next = newNode # tail_node -- newNode
+        newNode.next = self.tail # newNode -- tail_dummy
+        self.tail.prev = newNode # tail_dummy -- newNode
 
     def insert(self, afterNode, newNode):
+        """
+        Insert a new node after another one.
+        When the linked list is empty, newNode will be added regardless of afterNode value.
+        When the linked list is not empty:
+        - afterNode=None ==> newNode will be added in the end of the list;
+        - afterNode is in the list ==> newNode will be added between afterNode and the next node;
+        - afterNode is not in the list ==> nothing will be added.
+        """
         if self.tail.prev is self.head:
             self.add_in_head(newNode)
         else:
@@ -54,14 +62,19 @@ class LinkedList2:
                 node = self.head.next
                 while node is not self.tail:
                     if node is afterNode:
-                        newNode.next = node.next
-                        node.next.prev = newNode
-                        newNode.prev = node
-                        node.next = newNode
+                        newNode.next = node.next # newNode -- node.next
+                        node.next.prev = newNode # node.next -- newNode
+                        newNode.prev = node # newNode -- node
+                        node.next = newNode # node -- newNode
                         break
                     node = node.next
 
     def delete(self, val, rm_all=False):
+        """
+        Remove a node with node.value=val from the linked list.
+        By default, only the first found node will be deleted.
+        With rm_all=True all nodes with node.value=val will be removed from the linked list.
+        """
         node = self.head.next
         did_rm = False
         while (node is not self.tail) and (not all([not rm_all, did_rm])):
@@ -82,10 +95,12 @@ class LinkedList2:
             node = node.next
 
     def clean(self):
+        """Remove all nodes from the linked list"""
         self.head.next = self.tail
         self.tail.prev = self.head
 
     def len(self):
+        """Count nodes in the linked list"""
         length = 0
         node = self.head.next
         while node is not self.tail:
@@ -94,7 +109,7 @@ class LinkedList2:
         return length
 
     def find(self, val):
-        """Метод возвращает первый найденный по значению val узел"""
+        """Return a node with node.value=val"""
         node = self.head.next
         while node is not self.tail:
             if node.value == val:
@@ -103,7 +118,7 @@ class LinkedList2:
         return None
 
     def find_all(self, val):
-        """Метод возвращает список всех узлов со значением val"""
+        """Return the list of all nodes with node.value=val"""
         node = self.head.next
         nodes_list = []
         while node is not self.tail:
