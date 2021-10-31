@@ -32,9 +32,9 @@ class LinkedList2:
     def add_in_head(self, newNode):
         if self.tail.prev is self.head:
             self.tail.prev = newNode
-        newNode.next = self.head.next # newNode -- prev head_node
-        newNode.prev = self.head # newNode -- head_dummy
-        self.head.next = newNode # newNode > head_node
+        newNode.next = self.head.next
+        newNode.prev = self.head
+        self.head.next = newNode
 
     def add_in_tail(self, newNode):
         if self.tail.prev is self.head:
@@ -42,12 +42,26 @@ class LinkedList2:
         newNode.prev = self.tail.prev
         self.tail.prev.next = newNode
         newNode.next = self.tail
-        self.tail.prev = newNode # newNode > tail_node
-
-    def delete(self, val, rm_all=False):
-        pass
+        self.tail.prev = newNode
 
     def insert(self, afterNode, newNode):
+        if self.tail.prev is self.head:
+            self.add_in_head(newNode)
+        else:
+            if (afterNode is None) or (afterNode is self.tail.prev):
+                self.add_in_tail(newNode)
+            else:
+                node = self.head.next
+                while node is not self.tail:
+                    if node is afterNode:
+                        newNode.next = node.next
+                        node.next.prev = newNode
+                        newNode.prev = node
+                        node.next = newNode
+                        break
+                    node = node.next
+
+    def delete(self, val, rm_all=False):
         pass
 
     def clean(self):
