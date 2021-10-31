@@ -62,10 +62,28 @@ class LinkedList2:
                     node = node.next
 
     def delete(self, val, rm_all=False):
-        pass
+        node = self.head.next
+        did_rm = False
+        while (node is not self.tail) and (not all([not rm_all, did_rm])):
+            if node.value == val:
+                if self.head.next is self.tail.prev: # the only node from the list
+                    self.clean()
+                else:
+                    if node is self.head.next:
+                        self.head.next = node.next # self.head -- node.next
+                        node.next.prev = self.head # node.next -- self.head
+                    elif node is self.tail.prev:
+                        self.tail.prev = node.prev # self.tail -- node.prev
+                        node.prev.next = self.tail # node.prev -- self.tail
+                    else:
+                        node.next.prev = node.prev # node.next -- node.prev
+                        node.prev.next = node.next # node.prev -- node.next
+                    did_rm = True
+            node = node.next
 
     def clean(self):
-        pass
+        self.head.next = self.tail
+        self.tail.prev = self.head
 
     def len(self):
         length = 0
