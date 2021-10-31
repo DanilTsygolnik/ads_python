@@ -95,9 +95,19 @@ class LinkedList2:
 
     def find(self, val):
         """Метод возвращает первый найденный по значению val узел"""
+        node = self.head.next
+        while node is not self.tail:
+            if node.value == val:
+                return node
+            node = node.next
         return None
 
     def find_all(self, val):
         """Метод возвращает список всех узлов со значением val"""
+        node = self.head.next
         nodes_list = []
+        while node is not self.tail:
+            if node.value == val:
+                nodes_list.append(node)
+            node = node.next
         return nodes_list
