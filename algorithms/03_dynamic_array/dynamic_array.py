@@ -24,7 +24,7 @@ class DynArray:
     def resize(self, new_capacity):
         """Change buffer size where the dynamic array is stored"""
         new_array = self.make_array(new_capacity)
-        for i, _ in enumerate(self.array):
+        for i in range(self.count):
             new_array[i] = self.array[i]
         self.array = new_array
         self.capacity = new_capacity
@@ -36,13 +36,26 @@ class DynArray:
         self.array[self.count] = itm
         self.count += 1
 
-    def insert(self, i, itm):
+    def insert(self, index, item):
         """
-        Add a new item under the index i:
-        1) shift each item from under index i to the end one 1 step right;
-        2) store a new item under index i.
+        Add a new item under the index:
+        1) shift each item from under index to the end one 1 step right;
+        2) store a new item under index.
         """
-        pass
+        if 0 <= index <= self.count:
+            if self.count == self.capacity: # если буффер заполнен
+                self.resize(self.capacity * 2) # увеличиваем вдвое
+            new_array = self.make_array(self.capacity)
+            for i in range(self.count):
+                if i < index:
+                    new_array[i] = self.array[i]
+                else:
+                    new_array[i+1] = self.array[i]
+            new_array[index] = item
+            self.array = new_array
+            self.count += 1
+        else:
+            raise IndexError("Index is out of bounds")
 
     def delete(self, i):
         """Delete the item stored under the index i"""
