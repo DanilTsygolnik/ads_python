@@ -57,6 +57,18 @@ class DynArray:
         else:
             raise IndexError("Index is out of bounds")
 
-    def delete(self, i):
+    def delete(self, index:int):
         """Delete the item stored under the index i"""
-        pass
+        if self.count != 0 and 0<=index<=self.count:
+            for i in range(self.count):
+                if i>index:
+                    self.array[i-1] = self.array[i]
+            self.count -= 1
+            if self.count/self.capacity < 0.5:
+                if self.capacity != 16:
+                    if int(self.capacity/1.5) > 16:
+                        self.resize(int(self.capacity/1.5))
+                    else:
+                        self.resize(16)
+        else:
+            raise IndexError("Index is out of bounds")
