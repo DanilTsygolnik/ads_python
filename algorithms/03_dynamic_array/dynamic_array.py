@@ -43,8 +43,8 @@ class DynArray:
         2) store a new item under index.
         """
         if 0 <= index <= self.count:
-            if self.count == self.capacity: # если буффер заполнен
-                self.resize(self.capacity * 2) # увеличиваем вдвое
+            if self.count == self.capacity:
+                self.resize(self.capacity * 2)
             new_array = self.make_array(self.capacity)
             for i in range(self.count):
                 if i < index:
