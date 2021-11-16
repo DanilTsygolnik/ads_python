@@ -31,6 +31,7 @@ class OrderedList:
         return None
 
     def len(self):
+        """Return the number of nodes in the list"""
         node = self.head
         length = 0
         while node is not None:
@@ -71,36 +72,46 @@ class OrderedList:
         if v1 > v2:
             return 1
         return 0
-        
-    def add_in_tail(self, newNode):
-        if self.head is None:
-            self.head = newNode
+ 
+    def add(self, value):
+        """Add a new node with suggested value"""
+        node = self.head
+        new_node = Node(value)
+        if self.len() == 0:
+            self.head = new_node
+            self.tail = new_node
         else:
-            newNode.prev = self.tail
-            self.tail.next = newNode
-        self.tail = newNode
-
-    def insert(self, afterNode, newNode):
-        if self.head is None:
-            self.add_in_tail(newNode)
-        else:
-            if (afterNode is None) or (self.tail is afterNode):
-                self.add_in_tail(newNode)
+            if self.__ascending:
+                flag = +1
             else:
-                node = self.head
-                while node is not None:
-                    if node is afterNode:
-                        node.next.prev = newNode
-                        newNode.next = node.next
-                        node.next = newNode
-                        newNode.prev = node
-                        break
-                    node = node.next
+                flag = -1
+            while node is not None:
+                if self.compare(node.value, value) == flag:
+                    if node == self.head:
+                        new_node.next = self.head
+                        self.head.prev = new_node
+                        self.head = new_node
+                    else:
+                        node.prev.next = new_node
+                        new_node.prev = node.prev
+                        new_node.next = node
+                        node.prev = new_node
+                    return
+                node = node.next
+            self.tail.next = new_node
+            new_node.prev = self.tail
+            self.tail = new_node
 
-    def add_in_head(self, newNode):
-        if self.head is None:
-            self.tail = newNode
-        else:
-            self.head.prev = newNode
-            newNode.next = self.head
-        self.head = newNode
+class OrderedStringList(OrderedList):
+
+    def __init__(self, asc):
+        super(OrderedStringList, self).__init__(asc)
+
+    def compare(self, v1, v2):
+        s1 = v1.strip()
+        s2 = v2.strip()
+        if s1 < s2:
+            return -1
+        if s1 > s2:
+            return 1
+        return 0
