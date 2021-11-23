@@ -61,6 +61,7 @@ class OrderedList:
             node = node.next
 
     def clean(self, asc=True):
+        """Clean the list and set a new self.__ascending value if needed"""
         self.head = None
         self.tail = None
         self.__ascending = asc
@@ -72,40 +73,44 @@ class OrderedList:
         if v1 > v2:
             return 1
         return 0
- 
+
     def add(self, value):
         """Add a new node with suggested value"""
-        node = self.head
         new_node = Node(value)
-        if self.len() == 0:
+        if self.head is None: # addition to an empty ordered list
             self.head = new_node
             self.tail = new_node
         else:
-            if self.__ascending:
-                flag = +1
-            else:
-                flag = -1
+            node = self.head
             while node is not None:
-                if self.compare(node.value, value) == flag:
-                    if node == self.head:
-                        new_node.next = self.head
-                        self.head.prev = new_node
-                        self.head = new_node
-                    else:
-                        node.prev.next = new_node
-                        new_node.prev = node.prev
-                        new_node.next = node
-                        node.prev = new_node
-                    return
+                if self.__ascending:
+                    if self.compare(value, node.value) == -1: # if value < node.value:
+                        break
+                else:
+                    if self.compare(value, node.value) == 1: # if value > node.value:
+                        break
                 node = node.next
-            self.tail.next = new_node
-            new_node.prev = self.tail
-            self.tail = new_node
+            # inserting new_node before node (new_node -> node.prev)
+            if node is self.head:
+                self.head.prev = new_node # bind self.head.prev with new_node
+                new_node.next = self.head # bind new_node with self.head
+                self.head = new_node      # renew self.head
+            elif node is None:
+                self.tail.next = new_node # bind self.tail with new_node
+                new_node.prev = self.tail # bind new_node with self.tail
+                self.tail = new_node      # renew self.tail
+            else:
+                node.prev.next = new_node # bind node.prev with new_node
+                new_node.prev = node.prev # bind new_node with node.prev
+                node.prev = new_node      # bind node with new_node
+                new_node.next = node      # bind new_node with node
 
 class OrderedStringList(OrderedList):
 
     def __init__(self, asc):
-        super(OrderedStringList, self).__init__(asc)
+        # super(OrderedStringList, self).__init__(asc)
+        # R1725: pylint suggests using Python3 style super() without arguments
+        super().__init__(asc)
 
     def compare(self, v1, v2):
         s1 = v1.strip()
