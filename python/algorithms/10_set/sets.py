@@ -1,9 +1,13 @@
+import ctypes
+
 class PowerSet:
 
-    def __init__(self, stp:int=3, ns:int=1009):
+    def __init__(self, stp:int=3, ns:int=5):
         self.num_slots = ns
         self.step = stp
-        self.slots = [ [] ] * self.num_slots
+        self.slots = (ctypes.py_object * self.num_slots)()
+        for i in range(0,self.num_slots):
+            self.slots[i] = []
         self.__num_elem = 0
 
     def size(self):
@@ -13,8 +17,7 @@ class PowerSet:
     def hash_fun(self, value:str):
         """Calculate the index based on table size and value"""
         sum_of_bytes = sum(value.encode('utf-8'))
-        result = sum_of_bytes % self.num_slots
-        return result
+        return sum_of_bytes % self.num_slots
 
     def put(self, new_item:str):
         """Add a new item to the set"""
@@ -39,3 +42,19 @@ class PowerSet:
             self.__num_elem -= 1
             return True
         return False
+
+    def get_val(self): # supplemental method
+        """Return a sorted list of elements"""
+        list_val = []
+        for i in self.slots:
+            for j in i:
+                list_val.append(j)
+        return sorted(list_val)
+
+    def intersection(self, set2):
+        result = PowerSet()
+        for i in self.slots:
+            for j in i:
+                if set2.get(j):
+                    result.put(j)
+        return result
