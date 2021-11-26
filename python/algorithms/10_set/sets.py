@@ -85,3 +85,15 @@ class PowerSet:
         if result.size() != 0:
             return result
         return None
+
+    def issubset(self, set2):
+        """Check if set2 is a subset of the main set"""
+        if set2.size() == 0:
+            return True
+        if self.size() != 0:
+            for i in set2.slots:
+                for j in i:
+                    if not self.get(j):
+                        return False
+            return True
+        return False
