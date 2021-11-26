@@ -52,6 +52,7 @@ class PowerSet:
         return sorted(list_val)
 
     def copy(self):
+        """Return a dublicate of the current PowerSet instance"""
         new_copy = PowerSet()
         for i in self.slots:
             for j in i:
@@ -60,13 +61,27 @@ class PowerSet:
 
     def intersection(self, set2):
         result = PowerSet()
-        for i in self.get_val():    
+        for i in self.get_val():
             if set2.get(i):
                 result.put(i)
-        return result
+        if result.size() != 0:
+            return result
+        return None
 
     def union(self, set2):
         result = self.copy()
-        for i in set2.get_val():    
+        for i in set2.get_val():
             result.put(i)
-        return result
+        if result.size() != 0:
+            return result
+        return None
+
+    def difference(self, set2):
+        """Return a subset containing only elements that don't belong to set2"""
+        result = self.copy()
+        for i in set2.get_val():
+            if result.get(i):
+                result.remove(i)
+        if result.size() != 0:
+            return result
+        return None

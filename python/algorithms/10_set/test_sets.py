@@ -48,8 +48,7 @@ class TestPowerSetMainMethods(unittest.TestCase):
 
         # no intersections
         PS_result = self.PS_main.intersection(self.PS_supp)
-        self.assertEqual(PS_result.size(), 0)
-        self.assertEqual(PS_result.get_val(), [])
+        self.assertIsNone(PS_result)
 
         # add some common elements
         intersect_ref = sorted(str(i) for i in range(1,4))
@@ -66,6 +65,24 @@ class TestPowerSetMainMethods(unittest.TestCase):
 
         self.assertEqual(self.PS_main.get_val(), self.values[:5])
         self.assertEqual(self.PS_supp.get_val(), self.values[5:])
+
+    def test_difference(self):
+        ref_values = ['3', '4']
+        diff_values = ['1', '10', '2']
+        for i in diff_values:
+            self.PS_supp.put(i)
+
+        # both sets contain elements
+        PS_result = self.PS_main.difference(self.PS_supp)
+        self.assertEqual(PS_result.size(), 2)
+        self.assertEqual(PS_result.get_val(), ref_values)
+        # set2 has no elements from the 1st one
+        self.assertEqual(PS_result.difference(self.PS_supp).get_val(), ref_values)
+
+        # test empty set with set2 containing elements
+        PS_result = PowerSet()
+        self.assertEqual(PS_result.size(), 0)
+        self.assertIsNone(PS_result.difference(self.PS_supp))
 
 if __name__ == '__main__':
     unittest.main()
