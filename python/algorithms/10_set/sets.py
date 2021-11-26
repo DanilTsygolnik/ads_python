@@ -2,7 +2,7 @@ import ctypes
 
 class PowerSet:
 
-    def __init__(self, stp:int=3, ns:int=5):
+    def __init__(self, stp:int=3, ns:int=1009):
         self.num_slots = ns
         self.step = stp
         self.slots = (ctypes.py_object * self.num_slots)()
@@ -16,7 +16,7 @@ class PowerSet:
 
     def hash_fun(self, value:str):
         """Calculate the index based on table size and value"""
-        sum_of_bytes = sum(value.encode('utf-8'))
+        sum_of_bytes = sum(str(value).encode('utf-8'))
         return sum_of_bytes % self.num_slots
 
     def put(self, new_item:str):
@@ -60,31 +60,29 @@ class PowerSet:
         return new_copy
 
     def intersection(self, set2):
+        """Return a set containing only elements presented in both sets"""
         result = PowerSet()
         for i in self.get_val():
             if set2.get(i):
                 result.put(i)
-        if result.size() != 0:
-            return result
-        return None
+        return result
 
     def union(self, set2):
+        """Return a set consisting of elements from both sets"""
         result = self.copy()
         for i in set2.get_val():
             result.put(i)
-        if result.size() != 0:
-            return result
-        return None
+        return result
 
     def difference(self, set2):
         """Return a subset containing only elements that don't belong to set2"""
+        if self.size() == 0:
+            return self
         result = self.copy()
         for i in set2.get_val():
             if result.get(i):
                 result.remove(i)
-        if result.size() != 0:
-            return result
-        return None
+        return result
 
     def issubset(self, set2):
         """Check if set2 is a subset of the main set"""
