@@ -32,11 +32,17 @@ class TestPowerSetMainMethods(unittest.TestCase):
     def setUp(self):
         self.PS_main = PowerSet()
         self.PS_supp = PowerSet()
-        values = list(str(i) for i in range(1,11))
-        for i in values[:5]:
+        self.values = sorted(str(i) for i in range(1,11))
+        for i in self.values[:5]:
             self.PS_main.put(i)
-        for i in values[5:]:
+        for i in self.values[5:]:
             self.PS_supp.put(i)
+
+    def test_copy(self):
+        PS_copy = self.PS_main.copy()
+        self.assertEqual(PS_copy.size(), 5)
+        self.assertEqual(PS_copy.get_val(), self.values[:5])
+        self.assertIsNot(PS_copy, self.PS_main)
 
     def test_intersection(self):
 
@@ -46,13 +52,20 @@ class TestPowerSetMainMethods(unittest.TestCase):
         self.assertEqual(PS_result.get_val(), [])
 
         # add some common elements
-        intersect_ref = list(str(i) for i in range(1,4))
+        intersect_ref = sorted(str(i) for i in range(1,4))
         for i in intersect_ref:
             self.PS_supp.put(i)
         PS_result = self.PS_main.intersection(self.PS_supp)
         self.assertEqual(PS_result.size(), 3)
         self.assertEqual(PS_result.get_val(), intersect_ref)
 
+    def test_union(self):
+        PS_result = self.PS_main.union(self.PS_supp)
+        self.assertEqual(PS_result.size(), 10)
+        self.assertEqual(PS_result.get_val(), self.values)
+
+        self.assertEqual(self.PS_main.get_val(), self.values[:5])
+        self.assertEqual(self.PS_supp.get_val(), self.values[5:])
 
 if __name__ == '__main__':
     unittest.main()

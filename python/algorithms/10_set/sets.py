@@ -51,10 +51,22 @@ class PowerSet:
                 list_val.append(j)
         return sorted(list_val)
 
-    def intersection(self, set2):
-        result = PowerSet()
+    def copy(self):
+        new_copy = PowerSet()
         for i in self.slots:
             for j in i:
-                if set2.get(j):
-                    result.put(j)
+                new_copy.put(j)
+        return new_copy
+
+    def intersection(self, set2):
+        result = PowerSet()
+        for i in self.get_val():    
+            if set2.get(i):
+                result.put(i)
+        return result
+
+    def union(self, set2):
+        result = self.copy()
+        for i in set2.get_val():    
+            result.put(i)
         return result
