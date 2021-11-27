@@ -1,4 +1,5 @@
 import unittest
+import datetime
 from sets import PowerSet
 
 
@@ -101,6 +102,85 @@ class TestPowerSetMainMethods(unittest.TestCase):
         # filled-empty (must be True)
         self.assertTrue(self.PS_main.issubset(PS_empty))
 
+    def test_methods_speed(self):
+
+        # insertion test
+        PS = PowerSet()
+        exec_start_seconds = float(datetime.datetime.now().strftime("%S.%f"))
+        for i in range(0, 25000):
+            PS.put(i)
+        exec_finish_seconds = float(datetime.datetime.now().strftime("%S.%f"))
+        exec_time = (exec_finish_seconds-exec_start_seconds) % 60
+        self.assertTrue(exec_time < 2)  
+        print(f"insertion of 25000 elements takes {exec_time:.3f} seconds")
+
+        # intersection test
+        PS_1 = PowerSet()
+        PS_2 = PowerSet()
+        for i in range(0, 40000):
+            PS_1.put(i)
+        for i in range(12500, 62501):
+            PS_2.put(i)
+        exec_start_seconds = float(datetime.datetime.now().strftime("%S.%f"))
+        result = PS_1.intersection(PS_2)
+        exec_finish_seconds = float(datetime.datetime.now().strftime("%S.%f"))
+        exec_time = (exec_finish_seconds-exec_start_seconds) % 60
+        self.assertTrue(exec_time < 2)  
+        print(f"intersection() takes {exec_time:.3f} seconds")
+
+        # difference test
+        ps_1 = PowerSet()
+        ps_2 = PowerSet()
+        for i in range(0, 40000):
+            ps_1.put(i)
+        for i in range(12500, 62501):
+            ps_2.put(i)
+        exec_start_seconds = float(datetime.datetime.now().strftime("%S.%f"))
+        result = ps_1.difference(ps_2)
+        exec_finish_seconds = float(datetime.datetime.now().strftime("%S.%f"))
+        exec_time = (exec_finish_seconds-exec_start_seconds) % 60
+        self.assertTrue(exec_time < 2)  
+        print(f"difference() takes {exec_time:.3f} seconds")
+
+        # union test 1
+        ps_1 = PowerSet()
+        for i in range(0, 25000):
+            ps_1.put(i)
+        ps_2 = ps_1.copy()
+        exec_start_seconds = float(datetime.datetime.now().strftime("%S.%f"))
+        result = ps_1.union(ps_2)
+        exec_finish_seconds = float(datetime.datetime.now().strftime("%S.%f"))
+        exec_time = (exec_finish_seconds-exec_start_seconds) % 60
+        self.assertTrue(exec_time < 2)  
+        print(f"union() with 2 equal sets takes {exec_time:.3f} seconds")
+
+        # union test 2
+        ps_1 = PowerSet()
+        ps_2 = PowerSet()
+        for i in range(0, 25000):
+            ps_1.put(i)
+        for i in range(25000, 50001):
+            ps_2.put(i)
+        exec_start_seconds = float(datetime.datetime.now().strftime("%S.%f"))
+        result = ps_1.difference(ps_2)
+        exec_finish_seconds = float(datetime.datetime.now().strftime("%S.%f"))
+        exec_time = (exec_finish_seconds-exec_start_seconds) % 60
+        self.assertTrue(exec_time < 2)  
+        print(f"union() with 2 different sets takes {exec_time:.3f} seconds")
+
+        # issubset test
+        ps_1 = PowerSet()
+        ps_2 = PowerSet()
+        for i in range(0, 35000):
+            ps_1.put(i)
+        for i in range(10000, 25001):
+            ps_2.put(i)
+        exec_start_seconds = float(datetime.datetime.now().strftime("%S.%f"))
+        result = ps_1.issubset(ps_2)
+        exec_finish_seconds = float(datetime.datetime.now().strftime("%S.%f"))
+        exec_time = (exec_finish_seconds-exec_start_seconds) % 60
+        self.assertTrue(exec_time < 2)  
+        print(f"issubset() takes {exec_time:.3f} seconds")
 
 if __name__ == '__main__':
     unittest.main()
