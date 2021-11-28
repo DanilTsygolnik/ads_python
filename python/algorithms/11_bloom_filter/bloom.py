@@ -34,7 +34,7 @@ class BloomFilter:
                 self.bitarray[index_cnt] = ( self.bitarray[index_cnt] | int(i) ) # побитовая операция переключения на 1
                 index_cnt += 1
 
-    def is_value(self, str1):
+    def is_value(self, str_inp):
         mask1 = self.get_mask(self.hash1(str_inp))
         mask2 = self.get_mask(self.hash2(str_inp))
         for m in [mask1, mask2]:
