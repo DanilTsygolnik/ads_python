@@ -1,16 +1,3 @@
-
-class SimpleTreeNode:
-
-    def __init__(self, val=None, parent):
-        self.IsRoot = False
-        self.NodeValue = val
-        self.Parent = parent
-        self.Children = []
-        self.NodeLevel += parent.NodeLevel
-
-
-
-
 class SimpleTree:
 
     def __init__(self, Node=None):
