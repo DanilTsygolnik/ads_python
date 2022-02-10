@@ -9,6 +9,8 @@ class TestSimpleTree(unittest.TestCase):
         self.node1 = SimpleTreeNode(1)
         self.node2 = SimpleTreeNode(2)
         self.node3 = SimpleTreeNode(3)
+        self.node4 = SimpleTreeNode(4)
+        self.node5 = SimpleTreeNode(5)
 
         self.empty_tree = SimpleTree()
         self.tree = SimpleTree(self.root)
@@ -29,6 +31,35 @@ class TestSimpleTree(unittest.TestCase):
         self.tree.AddChild(self.node1, self.node3)
         self.assertEqual(self.node1.Children, [self.node2, self.node3])
         self.assertIs(self.node3.Parent, self.node1)
+
+    def test_GetAllNodes(self):
+        
+        # tree with root
+        self.assertEqual(self.tree.GetAllNodes(), [self.root])
+
+        # root--node1
+        self.tree.AddChild(self.tree.Root, self.node1)
+        expected_result = set([self.root, self.node1])
+        self.assertEqual(set(self.tree.GetAllNodes()), expected_result)
+
+        # root--node1
+        #    |--node2
+        self.tree.AddChild(self.tree.Root, self.node2)
+        expected_result.add(self.node2)
+        self.assertEqual(set(self.tree.GetAllNodes()), expected_result)
+        
+        # root--node1
+        #    |      |--node3
+        #    |      |--node4
+        #    |
+        #    |--node2
+        #           |--node5
+        self.tree.AddChild(self.node1, self.node3)
+        self.tree.AddChild(self.node1, self.node4)
+        self.tree.AddChild(self.node2, self.node5)
+        expected_result = set([self.root, self.node1, self.node2, self.node3, self.node4, self.node5])
+        self.assertEqual(set(self.tree.GetAllNodes()), expected_result)
+
 
  
 if __name__=="__main__":

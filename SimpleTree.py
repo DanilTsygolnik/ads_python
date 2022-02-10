@@ -14,7 +14,15 @@ class SimpleTree:
 
 
     def GetAllNodes(self):
-        pass
+        
+        def get_nodes_list(node, product:list):
+            result = product + [node]
+            if node.Children != []:
+                for child in node.Children:
+                    result = get_nodes_list(child, result)
+            return result
+
+        return get_nodes_list(self.Root, [])
 
 
     def FindNodesByValue(self, val):

@@ -1,15 +1,5 @@
 class SimpleTree:
 
-    def __init__(self, Node=None):
-        self.root = Node
-
-
-    def AddChild(self, ParentNode, NewChild):
-
-        ParentNode.Children.append(NewChild) # записать новый узел в список детей parent'а
-        NewChild.Parent = ParentNode # обновить значение NodeLevel у NewChild
-
-
     def DeleteNode(self, NodeToDelete):
 
         if NodeToDelete.IsRoot:
@@ -17,61 +7,6 @@ class SimpleTree:
         NodeToDelete.Parent.Children.remove(NodeToDelete) # удалить NodeToDelete из списка parent.children
         NodeToDelete.Parent = None # удалить узел со всей веткой из дерева
 
-
-    def GetAllNodes(self):
-
-        def get_children_list(tmp_product:list, current_node):
-            result = tmp_product
-            if current_node.Children != []:
-                for i in current_node.Children:
-                    result = get_children_list(result+[i], i)
-            return result
-
-        return get_children_list([], self.root)
-
-
-    def FindNodesByValue(self, val):
-        pass
-
-
-    def MoveNode(self, OriginalNode, NewParent):
-        pass
-
-
-    def Count(self):
-        pass
-
-
-    def LeafCount(self):
-        pass
-
-
-#----------------------------------------------------------------
-
-
-    def GetAllNodes(self):
-        """Вывести список всех узлов в произвольном порядке 
-
-        Что нужно сделать:
-        создать пустой список всех узлов
-        пройти по каждому узлу, проверяя список Children
-            пустой список -- предельный случай
-            если не пустой -- вызвать рекурсивную функцию от каждого узла в списке, результат прибавить к общему списку узлов
-
-        Returns
-        -------
-        list
-            Список всех узлов в дереве
-        """
-
-        def get_children_list(tmp_product:list, current_node):
-            result = tmp_product
-            if current_node.Children != []:
-                for i in current_node.Children:
-                    result = get_children_list(result+[i], i)
-            return result
-
-        return get_children_list([], self.root)
 
     def FindNodesByValue(self, val):
         """Найти список подходящих узлов по заданному значению
