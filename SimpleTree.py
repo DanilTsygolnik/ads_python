@@ -1,11 +1,12 @@
 class SimpleTree:
 
-    def __init__(self, Node=None):
-        self.root = Node
+    def __init__(self, root=None):
+        self.Root = root
 
 
     def AddChild(self, ParentNode, NewChild):
-        pass
+        ParentNode.Children.append(NewChild) # Parent--Child
+        NewChild.Parent = ParentNode # Child--Parent
 
 
     def DeleteNode(self, NodeToDelete):
