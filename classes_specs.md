@@ -9,14 +9,12 @@ class SimpleTreeNode:
  
     Attributes
     ----------
-    IsRoot : bool
-        маркер корневого узла (default is False)
- 
     NodeValue : None, int, optional
         значение, которое хранится в узле (default is None)
  
     Parent : <SimpleTreeNode>
         указатель на родительский узел
+        по умолчанию значение None, т.е. узел корневой
         желателен для быстрого выполнения различных операций
  
     Children : []
