@@ -27,7 +27,17 @@ class SimpleTree:
 
 
     def FindNodesByValue(self, val):
-        pass
+        
+        def get_nodes_list(node, product:list, val):
+            result = product
+            if node.NodeValue == val:
+                result.append(node)
+            if node.Children != []:
+                for child in node.Children:
+                    result = get_nodes_list(child, result, val)
+            return result
+
+        return get_nodes_list(self.Root, [], val)
 
 
     def MoveNode(self, OriginalNode, NewParent):

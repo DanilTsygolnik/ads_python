@@ -85,6 +85,35 @@ class TestSimpleTree(unittest.TestCase):
         expected_result = set([self.root, self.node2, self.node5])
         self.assertEqual(set(self.tree.GetAllNodes()), expected_result)
 
+    def test_FindNodesByValue(self):
+        # root(0)--node1(1)
+        #    |      |--node3(3)
+        #    |      |--node4(4)
+        #    |             |--node5(5)
+        #    |
+        #    |--node2(2)
+        self.tree.AddChild(self.tree.Root, self.node1)
+        self.tree.AddChild(self.tree.Root, self.node2)
+        self.tree.AddChild(self.node1, self.node3)
+        self.tree.AddChild(self.node1, self.node4)
+        self.tree.AddChild(self.node4, self.node5)
+
+        # no nodes with value
+        self.assertEqual(self.tree.FindNodesByValue(100), [])
+
+        # val==0, root
+        self.assertEqual(self.tree.FindNodesByValue(0), [self.root])
+ 
+        # val==5, deepest level node
+        self.assertEqual(self.tree.FindNodesByValue(5), [self.node5])
+
+        # all nodes
+        self.node1.NodeValue = 0
+        self.node2.NodeValue = 0
+        self.node3.NodeValue = 0
+        self.node4.NodeValue = 0
+        self.node5.NodeValue = 0
+        self.assertEqual(set(self.tree.FindNodesByValue(0)), set(self.tree.GetAllNodes()))
 
  
 if __name__=="__main__":
