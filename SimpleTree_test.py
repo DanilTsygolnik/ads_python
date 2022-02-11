@@ -142,6 +142,24 @@ class TestSimpleTree(unittest.TestCase):
         self.assertIs(self.node4.Parent, self.node2)
         self.assertEqual(self.node1.Children, [self.node3])
         self.assertEqual(self.node2.Children, [self.node4])
+
+    def test_Count(self):
+        self.assertEqual(self.empty_tree.Count(), 0)
+        self.assertEqual(self.tree.Count(), 1)
+
+        # root--node1
+        #    |      |--node3
+        #    |      |--node4
+        #    |             |--node5
+        #    |--node2
+        self.tree.AddChild(self.tree.Root, self.node1)
+        self.tree.AddChild(self.tree.Root, self.node2)
+        self.tree.AddChild(self.node1, self.node3)
+        self.tree.AddChild(self.node1, self.node4)
+        self.tree.AddChild(self.node4, self.node5)
+ 
+        self.assertEqual(self.tree.Count(), 6)
+
  
 if __name__=="__main__":
     unittest.main()

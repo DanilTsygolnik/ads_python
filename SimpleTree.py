@@ -48,7 +48,7 @@ class SimpleTree:
 
 
     def Count(self):
-        pass
+        return len(self.GetAllNodes())
 
 
     def LeafCount(self):
