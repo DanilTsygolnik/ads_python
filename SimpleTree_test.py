@@ -160,6 +160,32 @@ class TestSimpleTree(unittest.TestCase):
  
         self.assertEqual(self.tree.Count(), 6)
 
+    def test_LeafCount(self):
+        # no nodes
+        self.assertEqual(self.empty_tree.LeafCount(), 0)
+
+        # root
+        self.assertEqual(self.tree.LeafCount(), 1)
+
+        # root--node1
+        self.tree.AddChild(self.tree.Root, self.node1)
+        self.assertEqual(self.tree.LeafCount(), 1)
+
+        # root--node1
+        #    |--node2
+        self.tree.AddChild(self.tree.Root, self.node2)
+        self.assertEqual(self.tree.LeafCount(), 2)
+
+        # root--node1
+        #    |      |--node3
+        #    |      |--node4
+        #    |             |--node5
+        #    |--node2
+        self.tree.AddChild(self.node1, self.node3)
+        self.tree.AddChild(self.node1, self.node4)
+        self.tree.AddChild(self.node4, self.node5)
+        self.assertEqual(self.tree.LeafCount(), 3)
+
  
 if __name__=="__main__":
     unittest.main()

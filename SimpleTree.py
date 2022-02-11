@@ -56,4 +56,15 @@ class SimpleTree:
 
 
     def LeafCount(self):
-        pass
+
+        def count_leaves(node, leaves_num):
+            if node.Children == []:
+                return leaves_num + 1
+            result = leaves_num
+            for child in node.Children:
+                result = count_leaves(child, result)
+            return result
+
+        if self.Root is None:
+            return 0
+        return count_leaves(self.Root, 0)
