@@ -115,6 +115,33 @@ class TestSimpleTree(unittest.TestCase):
         self.node5.NodeValue = 0
         self.assertEqual(set(self.tree.FindNodesByValue(0)), set(self.tree.GetAllNodes()))
 
+
+    def test_MoveNode(self):
+        # root--node1
+        #    |      |--node3
+        #    |      |--node4
+        #    |             |--node5
+        #    |--node2
+        self.tree.AddChild(self.tree.Root, self.node1)
+        self.tree.AddChild(self.tree.Root, self.node2)
+        self.tree.AddChild(self.node1, self.node3)
+        self.tree.AddChild(self.node1, self.node4)
+        self.tree.AddChild(self.node4, self.node5)
+ 
+        # before
+        self.assertIs(self.node4.Parent, self.node1)
+        self.assertEqual(self.node1.Children, [self.node3, self.node4])
+        self.assertEqual(self.node2.Children, [])
+ 
+        self.tree.MoveNode(self.node4, self.node2)
+        # after
+        # root--node1--node3
+        #    |--node2
+        #           |--node4
+        #                  |--node5
+        self.assertIs(self.node4.Parent, self.node2)
+        self.assertEqual(self.node1.Children, [self.node3])
+        self.assertEqual(self.node2.Children, [self.node4])
  
 if __name__=="__main__":
     unittest.main()

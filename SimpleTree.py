@@ -41,7 +41,10 @@ class SimpleTree:
 
 
     def MoveNode(self, OriginalNode, NewParent):
-        pass
+        if OriginalNode is self.Root:
+            raise ValueError('Root can not be moved. Please, choose another node.')
+        self.DeleteNode(OriginalNode)
+        self.AddChild(NewParent, OriginalNode)
 
 
     def Count(self):
