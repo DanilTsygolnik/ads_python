@@ -1,3 +1,16 @@
+class SimpleTreeNode:
+
+    def __init__(self, val=None, parent=None):
+        self.NodeValue = val
+        self.Parent = parent
+        self.Children = []
+        self.NodeLevel = None
+        if self.Parent is None:
+            self.NodeLevel = 0
+        else:
+            self.NodeLevel = self.Parent.NodeLevel + 1
+
+
 class SimpleTree:
 
     def __init__(self, root=None):
@@ -15,7 +28,7 @@ class SimpleTree:
         NodeToDelete.Parent = None
 
     def GetAllNodes(self):
-        
+
         def get_nodes_list(node, product:list):
             result = product + [node]
             if node.Children != []:
@@ -29,7 +42,7 @@ class SimpleTree:
 
 
     def FindNodesByValue(self, val):
-        
+
         def get_nodes_list(node, product:list, val):
             result = product
             if node.NodeValue == val:
