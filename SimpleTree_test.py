@@ -57,7 +57,32 @@ class TestSimpleTree(unittest.TestCase):
         self.tree.AddChild(self.node1, self.node3)
         self.tree.AddChild(self.node1, self.node4)
         self.tree.AddChild(self.node2, self.node5)
+        # test
         expected_result = set([self.root, self.node1, self.node2, self.node3, self.node4, self.node5])
+        self.assertEqual(set(self.tree.GetAllNodes()), expected_result)
+
+
+    def test_DeleteNode_assert_not_root(self):
+        with self.assertRaises(AssertionError):
+            self.tree.DeleteNode(self.root)
+
+    def test_DeleteNode(self):
+        # root--node1
+        #    |      |--node3
+        #    |      |--node4
+        #    |
+        #    |--node2
+        #           |--node5
+        self.tree.AddChild(self.tree.Root, self.node1)
+        self.tree.AddChild(self.tree.Root, self.node2)
+        self.tree.AddChild(self.node1, self.node3)
+        self.tree.AddChild(self.node1, self.node4)
+        self.tree.AddChild(self.node2, self.node5)
+
+        self.tree.DeleteNode(self.node1)
+        # expected result
+        # root--node2--node5
+        expected_result = set([self.root, self.node2, self.node5])
         self.assertEqual(set(self.tree.GetAllNodes()), expected_result)
 
 

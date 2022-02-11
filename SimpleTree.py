@@ -10,8 +10,9 @@ class SimpleTree:
 
 
     def DeleteNode(self, NodeToDelete):
-        pass
-
+        assert NodeToDelete is not self.Root
+        NodeToDelete.Parent.Children.remove(NodeToDelete)
+        NodeToDelete.Parent = None
 
     def GetAllNodes(self):
         

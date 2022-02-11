@@ -1,13 +1,5 @@
 class SimpleTree:
 
-    def DeleteNode(self, NodeToDelete):
-
-        if NodeToDelete.IsRoot:
-            raise ValueError('This node is root. Choose another one.') # проверка, не является ли корневым
-        NodeToDelete.Parent.Children.remove(NodeToDelete) # удалить NodeToDelete из списка parent.children
-        NodeToDelete.Parent = None # удалить узел со всей веткой из дерева
-
-
     def FindNodesByValue(self, val):
         """Найти список подходящих узлов по заданному значению
 
