@@ -23,6 +23,8 @@ class SimpleTree:
                     result = get_nodes_list(child, result)
             return result
 
+        if self.Root is None:
+            return []
         return get_nodes_list(self.Root, [])
 
 
@@ -37,6 +39,8 @@ class SimpleTree:
                     result = get_nodes_list(child, result, val)
             return result
 
+        if self.Root is None:
+            return []
         return get_nodes_list(self.Root, [], val)
 
 
