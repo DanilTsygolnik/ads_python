@@ -65,8 +65,14 @@ class BST:
 
 
     def FinMinMax(self, FromNode, FindMax):
-        # ищем максимальный/минимальный ключ в поддереве
-        # возвращается объект типа BSTNode
+        if type(FromNode) is BSTNode:
+            if FindMax:
+                if FromNode.RightChild is None:
+                    return FromNode
+                return self.FinMinMax(FromNode.RightChild, True)
+            if FromNode.LeftChild is None:
+                return FromNode
+            return self.FinMinMax(FromNode.LeftChild, False)
         return None
 
 
