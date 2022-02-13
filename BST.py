@@ -2,7 +2,7 @@
 
 class BSTNode:
 
-    def __init__(self, key, val, parent):
+    def __init__(self, key, val=None, parent=None):
         self.NodeKey = key # ключ узла
         self.NodeValue = val # значение в узле
         self.Parent = parent # родитель или None для корня
@@ -47,8 +47,21 @@ class BST:
 
 
     def AddKeyValue(self, key, val):
-        # добавляем ключ-значение в дерево
-        return False # если ключ уже есть
+        """добавляем ключ-значение в дерево"""
+
+        key_search_result = self.FindNodeByKey(key)
+        if key_search_result.NodeHasKey: # если ключ уже есть
+            return False
+        new_node = BSTNode(key, val, None)
+        if key_search_result.Node is None: # если дерево пустое
+            self.Root = new_node
+        else:
+            new_node.Parent = key_search_result.Node
+            if key_search_result.ToLeft:
+                key_search_result.Node.LeftChild = new_node
+            else:
+                key_search_result.Node.RightChild = new_node
+        return True
 
 
     def FinMinMax(self, FromNode, FindMax):
