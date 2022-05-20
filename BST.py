@@ -10,7 +10,7 @@ class BSTNode:
         self.RightChild = None # правый потомок
         self.is_orphan = (self.LeftChild is None) and (self.RightChild is None)
 
-    def replace_with(self, node, push_kids=False):
+    def replace_with(self, node, pass_kids_on=False):
         if isinstance(node, BSTNode):
             node.replace_with(None)
             node.Parent = self.Parent
@@ -21,7 +21,7 @@ class BSTNode:
             else:
                 self.Parent.RightChild = node
             self.Parent = None
-        if push_kids:
+        if pass_kids_on:
             node.LeftChild = self.LeftChild
             node.RightChild = self.RightChild
             if self.LeftChild is not None:
@@ -106,3 +106,27 @@ class BST:
             return 0
 
         return count_nodes_from(self.Root)
+
+
+    def DeleteNodeByKey(self, key):
+        search_result = self.FindNodeByKey(key)
+        if search_result.NodeHasKey:
+            node_to_delete = search_result.Node
+            if node_to_delete.RightChild is not None:
+                in_subtree = node_to_delete.RightChild
+                heir = self.FinMinMax(in_subtree, FindMax=False)
+                if heir.is_orphan:
+                    heir_placeholder = heir.RightChild
+                    heir.replace_with(heir_placeholder)
+                pass_kids_on = True
+            if node_to_delete.RightChild is None:
+                if node_to_delete.LeftChild is not None:
+                    heir = node_to_delete.LeftChild
+                else:
+                    heir = None
+                pass_kids_on = False
+            node_to_delete.replace_with(heir, pass_kids_on)
+            if node_to_delete is self.Root:
+                self.Root = heir
+            return True
+        return False
