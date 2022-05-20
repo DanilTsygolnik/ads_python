@@ -86,15 +86,15 @@ class BST:
         return True
 
 
-    def FinMinMax(self, FromNode, FindMax):
-        if type(FromNode) is BSTNode:
+    def FindMinMax(self, FromNode, FindMax):
+        if isinstance(FromNode, BSTNode):
             if FindMax:
                 if FromNode.RightChild is None:
                     return FromNode
-                return self.FinMinMax(FromNode.RightChild, True)
+                return self.FindMinMax(FromNode.RightChild, True)
             if FromNode.LeftChild is None:
                 return FromNode
-            return self.FinMinMax(FromNode.LeftChild, False)
+            return self.FindMinMax(FromNode.LeftChild, False)
         return None
 
 
@@ -114,7 +114,7 @@ class BST:
             node_to_delete = search_result.Node
             if node_to_delete.RightChild is not None:
                 in_subtree = node_to_delete.RightChild
-                heir = self.FinMinMax(in_subtree, FindMax=False)
+                heir = self.FindMinMax(in_subtree, FindMax=False)
                 if heir.is_orphan:
                     heir_placeholder = heir.RightChild
                     heir.replace_with(heir_placeholder)

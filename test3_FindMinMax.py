@@ -12,15 +12,15 @@ class TestAddKeyValue(unittest.TestCase):
     def test_1(self):
         # empty tree
         self.empty_tree = BST(None)
-        result = self.empty_tree.FinMinMax(self.empty_tree.Root, True)
+        result = self.empty_tree.FindMinMax(self.empty_tree.Root, True)
         expected = None
         self.assertIs(expected, result)
 
         # only root
-        result = self.tree.FinMinMax(self.tree.Root, False)
+        result = self.tree.FindMinMax(self.tree.Root, False)
         expected = self.root
         self.assertIs(expected, result)
-        result = self.tree.FinMinMax(self.tree.Root, True)
+        result = self.tree.FindMinMax(self.tree.Root, True)
         self.assertIs(expected, result)
 
 
@@ -34,24 +34,24 @@ class TestAddKeyValue(unittest.TestCase):
         self.tree.AddKeyValue(12, None)
         self.tree.AddKeyValue(16, None)
         # entire tree
-        result = self.tree.FinMinMax(self.tree.Root, False).NodeKey
+        result = self.tree.FindMinMax(self.tree.Root, False).NodeKey
         expected = 2
         self.assertEqual(expected, result)
-        result = self.tree.FinMinMax(self.tree.Root, True).NodeKey # max
+        result = self.tree.FindMinMax(self.tree.Root, True).NodeKey # max
         expected = 16 
         self.assertEqual(expected, result)
         # left subtree
-        result = self.tree.FinMinMax(self.tree.Root.LeftChild, False).NodeKey
+        result = self.tree.FindMinMax(self.tree.Root.LeftChild, False).NodeKey
         expected = 2
         self.assertEqual(expected, result)
-        result = self.tree.FinMinMax(self.tree.Root.LeftChild, True).NodeKey # max
+        result = self.tree.FindMinMax(self.tree.Root.LeftChild, True).NodeKey # max
         expected = 8 
         self.assertEqual(expected, result)
         # right subtree
-        result = self.tree.FinMinMax(self.tree.Root.RightChild, False).NodeKey
+        result = self.tree.FindMinMax(self.tree.Root.RightChild, False).NodeKey
         expected = 12
         self.assertEqual(expected, result)
-        result = self.tree.FinMinMax(self.tree.Root.RightChild, True).NodeKey # max
+        result = self.tree.FindMinMax(self.tree.Root.RightChild, True).NodeKey # max
         expected = 16 
         self.assertEqual(expected, result)
 
