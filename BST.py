@@ -76,10 +76,11 @@ class BST:
         return None
 
 
-    def DeleteNodeByKey(self, key):
-        # удаляем узел по ключу
-        return False # если узел не найден
-
-
     def Count(self):
-        return 0 # количество узлов в дереве
+        def count_nodes_from(node):
+            if isinstance(node, BSTNode):
+                return 1 + count_nodes_from(node.LeftChild) + \
+                           count_nodes_from(node.RightChild)
+            return 0
+
+        return count_nodes_from(self.Root)
