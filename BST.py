@@ -8,6 +8,28 @@ class BSTNode:
         self.Parent = parent # родитель или None для корня
         self.LeftChild = None # левый потомок
         self.RightChild = None # правый потомок
+        self.is_orphan = (self.LeftChild is None) and (self.RightChild is None)
+
+    def replace_with(self, node, push_kids=False):
+        if isinstance(node, BSTNode):
+            node.replace_with(None)
+            node.Parent = self.Parent
+        if isinstance(self.Parent, BSTNode):
+            self_is_left_child = (self.Parent.LeftChild is self)
+            if self_is_left_child:
+                self.Parent.LeftChild = node
+            else:
+                self.Parent.RightChild = node
+            self.Parent = None
+        if push_kids:
+            node.LeftChild = self.LeftChild
+            node.RightChild = self.RightChild
+            if self.LeftChild is not None:
+                self.LeftChild.Parent = node
+            if self.RightChild is not None:
+                self.RightChild.Parent = node
+            self.LeftChild = None
+            self.RightChild = None
 
 
 class BSTFind: # промежуточный результат поиска
